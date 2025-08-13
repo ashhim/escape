@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Escape Room - Task 1</title>
+  <title>Escape Room - Task 2</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -36,7 +36,7 @@
 </head>
 <body>
 
-  <h1>Task 1</h1>
+  <h1>Task 2</h1>
   <p>Solve the puzzle and enter the answer below:</p>
 
   <input type="text" id="answer" placeholder="Enter answer here" />
@@ -61,7 +61,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    const correctAnswer = "greenlight"; // change to your actual puzzle answer
+    const correctAnswer = "redlight"; // change to your actual puzzle answer
 
     document.getElementById("submitBtn").addEventListener("click", () => {
       const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
@@ -75,9 +75,9 @@
 
       if (userAnswer === correctAnswer.toLowerCase()) {
         // Update level to 2 in Firebase
-        set(ref(db, "level"), 2)
+        set(ref(db, "leve2"), 3)
           .then(() => {
-            status.textContent = "Correct! Task 1 complete.";
+            status.textContent = "Correct! Task 2 complete.";
             status.style.color = "lightgreen";
           })
           .catch((err) => {
