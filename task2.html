@@ -75,7 +75,7 @@
 
       if (userAnswer === correctAnswer.toLowerCase()) {
         // Update level to 2 in Firebase
-        set(ref(db, "leve2"), 3)
+        set(ref(db, "leve"), 3)
           .then(() => {
             status.textContent = "Correct! Task 2 complete.";
             status.style.color = "lightgreen";
