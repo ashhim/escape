@@ -1,14 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Update TV Message</title>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Escape Room - Task 1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #ffcc00;
+    }
+    input, button {
+      font-size: 1rem;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+    input {
+      width: 200px;
+    }
+    button {
+      background: #ffcc00;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #ffaa00;
+    }
+  </style>
 </head>
 <body>
-  <h2>Send a message to the TV</h2>
-  <input type="text" id="message" placeholder="Enter your message" />
-  <button id="sendBtn">Send</button>
+
+  <h1>Task 1</h1>
+  <p>Solve the puzzle and enter the answer below:</p>
+
+  <input type="text" id="answer" placeholder="Enter answer here" />
+  <button id="submitBtn">Submit</button>
+
+  <p id="status"></p>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
@@ -27,16 +61,36 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    document.getElementById("sendBtn").addEventListener("click", () => {
-      const message = document.getElementById("message").value;
-      if (message.trim() !== "") {
-        set(ref(db, "tvMessage"), message)
-          .then(() => alert("Message sent to TV!"))
-          .catch((err) => alert("Error: " + err));
+    const correctAnswer = "greenlight"; // change to your actual puzzle answer
+
+    document.getElementById("submitBtn").addEventListener("click", () => {
+      const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
+      const status = document.getElementById("status");
+
+      if (!userAnswer) {
+        status.textContent = "Please enter an answer!";
+        status.style.color = "red";
+        return;
+      }
+
+      if (userAnswer === correctAnswer.toLowerCase()) {
+        // Update level to 2 in Firebase
+        set(ref(db, "level"), 2)
+          .then(() => {
+            status.textContent = "Correct! Task 1 complete.";
+            status.style.color = "lightgreen";
+          })
+          .catch((err) => {
+            status.textContent = "Error: " + err;
+            status.style.color = "red";
+          });
       } else {
-        alert("Please enter a message first.");
+        status.textContent = "Wrong answer. Try again.";
+        status.style.color = "red";
       }
     });
   </script>
+
 </body>
 </html>
+
